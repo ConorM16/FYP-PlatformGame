@@ -1,16 +1,23 @@
 ﻿using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
+using UnityEngine.UI;
 
 public class Ball_Movement : MonoBehaviour
 {
 	public float speed;
 	public float jump;
+    public Text scoreText;
+    public Text winText;
 
 	private Rigidbody rb;
+    private int score;
 
 	void Start () {
 		rb = GetComponent<Rigidbody>();
+        score = 0;
+        SetScoreText();
+        winText.text = "";
 	}
 
 	void FixedUpdate () {
@@ -37,6 +44,17 @@ public class Ball_Movement : MonoBehaviour
         if (other.gameObject.CompareTag("Pick Up"))
         {
             other.gameObject.SetActive(false);
+            score = score + 1;
+            SetScoreText();
+        }
+    }
+
+    void SetScoreText()
+    {
+        scoreText.text = "Score: " + score.ToString();
+        if (score >= 6)
+        {
+            winText.text = "You Win!";
         }
     }
 
