@@ -12,23 +12,32 @@ public class Ball_Movement : MonoBehaviour
 
 	private Rigidbody rb;
     private int score;
+    private int play;
 
-	void Start () {
+	void Start ()
+    {
 		rb = GetComponent<Rigidbody>();
         score = 0;
+        play = 1;
         SetScoreText();
         winText.text = "";
 	}
 
-	void FixedUpdate () {
+	void FixedUpdate ()
+    {
 		float moveHor = (Input.GetAxis("Horizontal"));
 		float moveVert = (Input.GetAxis("Vertical"));
 
 		Vector3 movement = new Vector3(moveHor,0.0f,moveVert);
-		rb.AddForce(movement*speed);
+        if(play == 1)
+        {
+            rb.AddForce(movement*speed);
+        }
+		
 	}
 
-	void Update () {
+	void Update ()
+    {
 	/*	if(Input.GetKeyDown <KeyCode.Space>){
 			GetComponent<Rigidbody> ().AddForce(Vector3.up*2000);
 		}
@@ -49,13 +58,20 @@ public class Ball_Movement : MonoBehaviour
         }
     }
 
+    void onCollisionEnter(UnityEngine.Collision other)
+    {
+        Debug.Log("Hit");
+        if (other.gameObject.CompareTag("EndPlat"))
+        {
+            winText.text = "You Win! \nFinal Score: " + score.ToString();
+            play = 0;
+            //SetScoreText();
+        }
+    }
+
     void SetScoreText()
     {
         scoreText.text = "Score: " + score.ToString();
-        if (score >= 6)
-        {
-            winText.text = "You Win!";
-        }
     }
 
 }
