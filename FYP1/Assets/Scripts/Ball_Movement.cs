@@ -11,6 +11,7 @@ public class Ball_Movement : MonoBehaviour
     public Text winText;
 
 	private Rigidbody rb;
+    private GameObject player;
     private int score;
     private int play;
     private bool grounded;
@@ -18,7 +19,8 @@ public class Ball_Movement : MonoBehaviour
 
 	void Start ()
     {
-		rb = GetComponent<Rigidbody>();
+        player = GameObject.FindWithTag("Player");
+        rb = GetComponent<Rigidbody>();
         score = 0;
         play = 1;
         grounded = true;
@@ -60,6 +62,11 @@ public class Ball_Movement : MonoBehaviour
                 canDoubleJump = false;
             }
 		}
+        else if (Input.GetKey("q"))
+        {
+            Destroy(player);
+            play = 0;
+        }
 	}
 
     void OnTriggerEnter(Collider other)
