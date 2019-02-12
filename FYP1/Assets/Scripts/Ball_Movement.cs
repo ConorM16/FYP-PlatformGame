@@ -13,12 +13,16 @@ public class Ball_Movement : MonoBehaviour
 	private Rigidbody rb;
     private int score;
     private int play;
+    private bool grounded;
+    private bool canDoubleJump;
 
 	void Start ()
     {
 		rb = GetComponent<Rigidbody>();
         score = 0;
         play = 1;
+        grounded = true;
+        canDoubleJump = false;
         SetScoreText();
         winText.text = "";
 	}
@@ -44,7 +48,17 @@ public class Ball_Movement : MonoBehaviour
 	*/
 		if (Input.GetButtonDown("Jump"))
 		{
-			rb.AddForce(Vector3.up * jump);
+            if (grounded)
+            {
+                rb.AddForce(Vector3.up * jump);
+                grounded = false;
+                canDoubleJump = true;
+            }
+            else if (canDoubleJump)
+            {
+                rb.AddForce(Vector3.up * jump);
+                canDoubleJump = false;
+            }
 		}
 	}
 
@@ -58,14 +72,17 @@ public class Ball_Movement : MonoBehaviour
         }
     }
 
-    void onCollisionEnter(UnityEngine.Collision other)
+    void OnCollisionEnter(UnityEngine.Collision other)
     {
-        Debug.Log("Hit");
         if (other.gameObject.CompareTag("EndPlat"))
         {
             winText.text = "You Win! \nFinal Score: " + score.ToString();
             play = 0;
             //SetScoreText();
+        }
+        else
+        {
+            grounded = true;
         }
     }
 
