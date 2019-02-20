@@ -20,13 +20,15 @@ public class Ball_Movement : MonoBehaviour
 
     private bool grounded;
     private bool canDoubleJump;
+    private bool move;
 
-	void Start ()
+    void Start ()
     {
         player = GameObject.FindWithTag("Player");
         rb = GetComponent<Rigidbody>();
         score = 0;
         play = 1;
+        move = false;
         angle = new Vector3(0, 1, 0);
         grounded = true;
         canDoubleJump = false;
@@ -39,14 +41,25 @@ public class Ball_Movement : MonoBehaviour
     {
 		float moveHor = (Input.GetAxis("Horizontal"));
 		float moveVert = (Input.GetAxis("Vertical"));
-        if (Input.GetKey("1")) angle = new Vector3(0, 1, 0);
-        if (Input.GetKey("2")) angle = new Vector3(0, -1, 0); ;
+        if (Input.GetKey("1"))
+        {
+            Rot(1);
+        }
+        if (Input.GetKey("2"))
+        {
+            Rot(-1);
+        }
         Quaternion deltaRotation = Quaternion.Euler(angle * Time.deltaTime);
         Vector3 movement = new Vector3(moveHor,0.0f,moveVert);
         if(play == 1)
         {
-            rb.MoveRotation(rb.rotation * deltaRotation);
+            if(move)
+            {
+                rb.MoveRotation(rb.rotation * deltaRotation);
+            }
+            //transform.Rotate(angle);
             rb.AddForce(movement*speed);
+            move = false;
         }
 		
 	}
@@ -63,14 +76,14 @@ public class Ball_Movement : MonoBehaviour
             {
                 //rb.velocity = new Vector3(rb.velocity.x, 0, rb.velocity.z);
                 //rb.AddForce(new Vector3(0,jump,0));
-                jumpNew();
+                JumpNew();
                 grounded = false;
                 canDoubleJump = true;
             }
             else if (canDoubleJump)
             {
                 //rb.AddForce(Vector3.up * jump);
-                jumpNew();
+                JumpNew();
                 canDoubleJump = false;
             }
 		}
@@ -117,10 +130,16 @@ public class Ball_Movement : MonoBehaviour
         scoreText2.text = "Score: " + score.ToString();
     }
 
-    void jumpNew()
+    void JumpNew()
     {
         rb.velocity = new Vector3(rb.velocity.x, 0, rb.velocity.z);
         rb.AddForce(new Vector3(0, jump, 0));
+    }
+
+    void Rot(int degrees)
+    {
+        move = true;
+        angle = new Vector3(0, degrees, 0);
     }
 
 }

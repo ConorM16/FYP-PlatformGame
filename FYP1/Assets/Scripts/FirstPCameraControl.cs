@@ -11,8 +11,14 @@ public class FirstPCameraControl : MonoBehaviour
     // Update is called once per frame
     void Update()
     {
-        if (Input.GetKey("1")) OrbitTower(false);
-        if (Input.GetKey("2")) OrbitTower(true);
+        if (Input.GetKey("1"))
+        {
+            OrbitTower(false);
+        }
+        if (Input.GetKey("2"))
+        {
+            OrbitTower(true);
+        }
     }
 
     protected void OrbitTower(bool bLeft)
