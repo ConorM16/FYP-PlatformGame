@@ -16,6 +16,8 @@ public class Ball_Movement : MonoBehaviour
     private GameObject player;
     private int score;
     private int play;
+    Vector3 angle;
+
     private bool grounded;
     private bool canDoubleJump;
 
@@ -25,6 +27,7 @@ public class Ball_Movement : MonoBehaviour
         rb = GetComponent<Rigidbody>();
         score = 0;
         play = 1;
+        angle = new Vector3(0, 1, 0);
         grounded = true;
         canDoubleJump = false;
         SetScoreText();
@@ -36,10 +39,13 @@ public class Ball_Movement : MonoBehaviour
     {
 		float moveHor = (Input.GetAxis("Horizontal"));
 		float moveVert = (Input.GetAxis("Vertical"));
-
-		Vector3 movement = new Vector3(moveHor,0.0f,moveVert);
+        if (Input.GetKey("1")) angle = new Vector3(0, 1, 0);
+        if (Input.GetKey("2")) angle = new Vector3(0, -1, 0); ;
+        Quaternion deltaRotation = Quaternion.Euler(angle * Time.deltaTime);
+        Vector3 movement = new Vector3(moveHor,0.0f,moveVert);
         if(play == 1)
         {
+            rb.MoveRotation(rb.rotation * deltaRotation);
             rb.AddForce(movement*speed);
         }
 		
