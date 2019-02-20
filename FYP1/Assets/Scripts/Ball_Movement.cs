@@ -9,8 +9,10 @@ public class Ball_Movement : MonoBehaviour
 	public float jump;
     public Text scoreText;
     public Text winText;
+    public Text scoreText2;
+    public Text winText2;
 
-	private Rigidbody rb;
+    private Rigidbody rb;
     private GameObject player;
     private int score;
     private int play;
@@ -27,7 +29,8 @@ public class Ball_Movement : MonoBehaviour
         canDoubleJump = false;
         SetScoreText();
         winText.text = "";
-	}
+        winText2.text = "";
+    }
 
 	void FixedUpdate ()
     {
@@ -87,6 +90,7 @@ public class Ball_Movement : MonoBehaviour
         if (other.gameObject.CompareTag("EndPlat"))
         {
             winText.text = "Final Score: " + score.ToString();
+            winText2.text = "Final Score: " + score.ToString();
             play = 0;
             //SetScoreText();
         }
@@ -104,6 +108,7 @@ public class Ball_Movement : MonoBehaviour
     void SetScoreText()
     {
         scoreText.text = "Score: " + score.ToString();
+        scoreText2.text = "Score: " + score.ToString();
     }
 
     void jumpNew()
