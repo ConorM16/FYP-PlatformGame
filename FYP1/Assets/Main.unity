@@ -2030,7 +2030,7 @@ GameObject:
   - component: {fileID: 1304745623}
   - component: {fileID: 1304745622}
   m_Layer: 0
-  m_Name: Final
+  m_Name: Final Platform
   m_TagString: EndPlat
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0

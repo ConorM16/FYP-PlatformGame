@@ -52,13 +52,16 @@ public class Ball_Movement : MonoBehaviour
 		{
             if (grounded)
             {
-                rb.AddForce(Vector3.up * jump);
+                //rb.velocity = new Vector3(rb.velocity.x, 0, rb.velocity.z);
+                //rb.AddForce(new Vector3(0,jump,0));
+                jumpNew();
                 grounded = false;
                 canDoubleJump = true;
             }
             else if (canDoubleJump)
             {
-                rb.AddForce(Vector3.up * jump);
+                //rb.AddForce(Vector3.up * jump);
+                jumpNew();
                 canDoubleJump = false;
             }
 		}
@@ -83,9 +86,14 @@ public class Ball_Movement : MonoBehaviour
     {
         if (other.gameObject.CompareTag("EndPlat"))
         {
-            winText.text = "You Win! \nFinal Score: " + score.ToString();
+            winText.text = "Final Score: " + score.ToString();
             play = 0;
             //SetScoreText();
+        }
+        else if(other.gameObject.CompareTag("Hurdle"))
+        {
+            score = score - 2;
+            SetScoreText();
         }
         else
         {
@@ -96,6 +104,12 @@ public class Ball_Movement : MonoBehaviour
     void SetScoreText()
     {
         scoreText.text = "Score: " + score.ToString();
+    }
+
+    void jumpNew()
+    {
+        rb.velocity = new Vector3(rb.velocity.x, 0, rb.velocity.z);
+        rb.AddForce(new Vector3(0, jump, 0));
     }
 
 }
