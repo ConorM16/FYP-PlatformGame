@@ -11,10 +11,8 @@ public class FirstPCameraControl : MonoBehaviour
     // Update is called once per frame
     void Update()
     {
-        if (Input.GetKey("d")) OrbitTower(false);
-        if (Input.GetKey("a")) OrbitTower(true);
-        if (Input.GetKey("w")) MoveInOrOut(false);
-        if (Input.GetKey("s")) MoveInOrOut(true);
+        if (Input.GetKey("1")) OrbitTower(false);
+        if (Input.GetKey("2")) OrbitTower(true);
     }
 
     protected void OrbitTower(bool bLeft)
@@ -29,12 +27,5 @@ public class FirstPCameraControl : MonoBehaviour
         }
         else
             transform.RotateAround(Player.transform.position, Vector3.up, fDistanceRadians);
-    }
-
-    protected void MoveInOrOut(bool bOut)
-    {
-        if (bOut) transform.Translate(0, 0, -fSpeed, Space.Self);
-        else
-            transform.Translate(0, 0, fSpeed, Space.Self);
     }
 }
