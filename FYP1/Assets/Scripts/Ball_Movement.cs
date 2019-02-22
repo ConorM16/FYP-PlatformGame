@@ -50,15 +50,14 @@ public class Ball_Movement : MonoBehaviour
             Rot(-1);
         }
         Quaternion deltaRotation = Quaternion.Euler(angle * Time.deltaTime);
-        Vector3 movement = new Vector3(moveHor,0.0f,moveVert);
+       Vector3 movement = new Vector3(moveHor,0.0f,moveVert);
         if(play == 1)
         {
             if(move)
             {
                 rb.MoveRotation(rb.rotation * deltaRotation);
             }
-            //transform.Rotate(angle);
-            rb.AddForce(movement*speed);
+            rb.AddForce(transform.forward*speed);
             move = false;
         }
 		
@@ -66,16 +65,10 @@ public class Ball_Movement : MonoBehaviour
 
 	void Update ()
     {
-	/*	if(Input.GetKeyDown <KeyCode.Space>){
-			GetComponent<Rigidbody> ().AddForce(Vector3.up*2000);
-		}
-	*/
 		if (Input.GetButtonDown("Jump"))
 		{
             if (grounded)
             {
-                //rb.velocity = new Vector3(rb.velocity.x, 0, rb.velocity.z);
-                //rb.AddForce(new Vector3(0,jump,0));
                 JumpNew();
                 grounded = false;
                 canDoubleJump = true;
