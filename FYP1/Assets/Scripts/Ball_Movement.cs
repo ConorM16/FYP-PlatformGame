@@ -2,6 +2,7 @@
 using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.UI;
+using UnityEngine.SceneManagement;
 
 public class Ball_Movement : MonoBehaviour
 {
@@ -106,10 +107,9 @@ public class Ball_Movement : MonoBehaviour
                 canDoubleJump = false;
             }
 		}
-        else if (Input.GetKey("q"))
+        else if (Input.GetKey("r"))
         {
-            Destroy(player);
-            play = 0;
+            SceneManager.LoadScene(SceneManager.GetActiveScene().name);
         }
 	}
 
