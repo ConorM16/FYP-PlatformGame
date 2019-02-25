@@ -2,7 +2,7 @@
 using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.UI;
-using UnityEngine.SceneManagement;
+ using UnityEngine.SceneManagement;
 
 public class Ball_Movement : MonoBehaviour
 {
@@ -107,9 +107,17 @@ public class Ball_Movement : MonoBehaviour
                 canDoubleJump = false;
             }
 		}
-        else if (Input.GetKey("r"))
+        if (Input.GetKey("r"))
         {
             SceneManager.LoadScene(SceneManager.GetActiveScene().name);
+        }
+        if (Input.GetKey("q"))
+        {
+            GameOver();
+        }
+        if(transform.position.y <= -4)
+        {
+            GameOver();
         }
 	}
 
@@ -159,6 +167,14 @@ public class Ball_Movement : MonoBehaviour
     {
         move = true;
         angle = new Vector3(0, degrees, 0);
+    }
+
+    void GameOver()
+    {
+        Destroy(player);
+        winText.text = "Game Over";
+        winText2.text = "Game Over";
+        play = 0;
     }
 
 }
