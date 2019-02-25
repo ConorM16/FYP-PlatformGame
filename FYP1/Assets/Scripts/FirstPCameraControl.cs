@@ -5,14 +5,16 @@ using UnityEngine;
 public class FirstPCameraControl : MonoBehaviour
 {
     protected float fDistance = 1;
-    protected float fSpeed = 1;
+    protected float fSpeed = 2;
     public GameObject player;
+    private Transform target;
     private Vector3 offset;
     float fOrbitCircumfrance;
 
     void Start()
     {
         offset = transform.position - player.transform.position;
+        target = player.transform;
     }
 
     // Update is called once per frame
@@ -25,6 +27,10 @@ public class FirstPCameraControl : MonoBehaviour
         if (Input.GetKey("2"))
         {
             OrbitTower(true);
+        }
+        if (Input.GetKey("3"))
+        {
+            transform.LookAt(target);
         }
         //transform.position = player.transform.position + offset;
     }
