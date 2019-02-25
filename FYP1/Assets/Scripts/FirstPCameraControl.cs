@@ -6,7 +6,14 @@ public class FirstPCameraControl : MonoBehaviour
 {
     protected float fDistance = 1;
     protected float fSpeed = 1;
-    public GameObject Player;
+    public GameObject player;
+    private Vector3 offset;
+    float fOrbitCircumfrance;
+
+    void Start()
+    {
+        offset = transform.position - player.transform.position;
+    }
 
     // Update is called once per frame
     void Update()
@@ -19,7 +26,13 @@ public class FirstPCameraControl : MonoBehaviour
         {
             OrbitTower(true);
         }
+        //transform.position = player.transform.position + offset;
     }
+
+   /* void LateUpdate()
+    {
+        transform.position = player.transform.position + offset;
+    }*/
 
     protected void OrbitTower(bool bLeft)
     {
@@ -29,9 +42,9 @@ public class FirstPCameraControl : MonoBehaviour
         float fDistanceRadians = (fSpeed / fOrbitCircumfrance) * 2 * Mathf.PI;
         if (bLeft)
         {
-            transform.RotateAround(Player.transform.position, Vector3.up, -fDistanceRadians);
+            transform.RotateAround(player.transform.position, Vector3.up, -fDistanceRadians);
         }
         else
-            transform.RotateAround(Player.transform.position, Vector3.up, fDistanceRadians);
+            transform.RotateAround(player.transform.position, Vector3.up, fDistanceRadians);
     }
 }

@@ -11,11 +11,14 @@ public class Ball_Movement : MonoBehaviour
     public Text winText;
     public Text scoreText2;
     public Text winText2;
+    public Camera myCam;
 
     private Rigidbody rb;
+    //private Transform cam;
     private GameObject player;
     private int score;
     private int play;
+    private Vector3 camDirection;
     Vector3 angle;
 
     private bool grounded;
@@ -26,6 +29,8 @@ public class Ball_Movement : MonoBehaviour
     {
         player = GameObject.FindWithTag("Player");
         rb = GetComponent<Rigidbody>();
+        camDirection = myCam.transform.forward;
+        //cam = Camera.main.transform;
         score = 0;
         play = 1;
         move = false;
@@ -50,14 +55,35 @@ public class Ball_Movement : MonoBehaviour
             Rot(-1);
         }
         Quaternion deltaRotation = Quaternion.Euler(angle * Time.deltaTime);
-       Vector3 movement = new Vector3(moveHor,0.0f,moveVert);
+        Vector3 movement = new Vector3(moveHor,0.0f,moveVert);
+        //Vector3 movement2 = new Vector3(cam.TransformDirection);
         if(play == 1)
         {
             if(move)
             {
                 rb.MoveRotation(rb.rotation * deltaRotation);
             }
-            rb.AddForce(transform.forward*speed);
+            if (Input.GetKey(KeyCode.P))
+            {
+                camDirection = myCam.transform.forward;
+                movement = camDirection * speed * Time.deltaTime;
+                //rigidbody.AddForce(movement);
+                rb.AddForce(movement);
+                //rb.AddForce(cam.TransformDirection * speed);
+                //rb.AddForce(Vector3.forward * speed);
+                //transform.position += Vector3.forward * Time.deltaTime * speed;
+            }
+            if (Input.GetKey(KeyCode.O))
+            {
+                camDirection = myCam.transform.forward*-1;
+                movement = camDirection * speed * Time.deltaTime;
+                //rigidbody.AddForce(movement);
+                rb.AddForce(movement);
+                //rb.AddForce(cam.TransformDirection * speed);
+                //rb.AddForce(Vector3.forward * speed);
+                //transform.position += Vector3.forward * Time.deltaTime * speed;
+            }
+            rb.AddForce(movement*speed);
             move = false;
         }
 		
