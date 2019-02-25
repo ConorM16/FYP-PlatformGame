@@ -25,6 +25,7 @@ public class Ball_Movement : MonoBehaviour
     private bool grounded;
     private bool canDoubleJump;
     private bool move;
+    private bool paused;
 
     void Start ()
     {
@@ -35,6 +36,7 @@ public class Ball_Movement : MonoBehaviour
         score = 0;
         play = 1;
         move = false;
+        paused = false;
         angle = new Vector3(0, 1, 0);
         grounded = true;
         canDoubleJump = false;
@@ -115,6 +117,10 @@ public class Ball_Movement : MonoBehaviour
         {
             GameOver();
         }
+        if (Input.GetKey("t"))
+        {
+            PauseGame();
+        }
         if(transform.position.y <= -4)
         {
             GameOver();
@@ -175,6 +181,24 @@ public class Ball_Movement : MonoBehaviour
         winText.text = "Game Over";
         winText2.text = "Game Over";
         play = 0;
+    }
+
+    void PauseGame()
+    {
+        if (!paused)
+        {
+            Time.timeScale = 0;
+            paused = true;
+            winText.text = "Game Paused";
+            winText2.text = "Game Paused";
+        }
+        else
+        {
+            winText.text = "";
+            winText2.text = "";
+            Time.timeScale = 1;
+            paused = false;
+        }
     }
 
 }
