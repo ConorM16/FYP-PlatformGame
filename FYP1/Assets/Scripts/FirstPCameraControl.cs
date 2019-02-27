@@ -32,7 +32,7 @@ public class FirstPCameraControl : MonoBehaviour
         {
             transform.LookAt(target);
         }
-        //transform.position = player.transform.position + offset;
+        transform.position = player.transform.position + offset;
     }
 
    /* void LateUpdate()
