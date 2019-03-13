@@ -13,6 +13,7 @@ public class Ball_Movement : MonoBehaviour
     public Text scoreText2;
     public Text winText2;
     public Camera myCam;
+    public Light myLight;
 
     private Rigidbody rb;
     //private Transform cam;
@@ -26,6 +27,7 @@ public class Ball_Movement : MonoBehaviour
     private bool canDoubleJump;
     private bool move;
     private bool paused;
+    private bool shadowOn;
 
     void Start ()
     {
@@ -41,8 +43,9 @@ public class Ball_Movement : MonoBehaviour
         grounded = true;
         canDoubleJump = false;
         SetScoreText();
-        winText.text = "";
-        winText2.text = "";
+        setWinText("");
+        shadowOn = true;
+//        StartCoroutine("changeShadows");
     }
 
 	void FixedUpdate ()
@@ -89,6 +92,7 @@ public class Ball_Movement : MonoBehaviour
             rb.AddForce(movement*speed);
             move = false;
         }
+
 		
 	}
 
@@ -121,11 +125,23 @@ public class Ball_Movement : MonoBehaviour
         {
             PauseGame();
         }
-        if(transform.position.y <= -4)
+        if (Input.GetKey("n"))
+        {
+            StartCoroutine("changeShadows");
+        }
+        if (transform.position.y <= -4)
         {
             GameOver();
         }
 	}
+
+ /*   void LateUpdate()
+    {
+        if (Input.GetKey("n"))
+        {
+            changeShadows();
+        }
+    }*/
 
     void OnTriggerEnter(Collider other)
     {
@@ -141,8 +157,9 @@ public class Ball_Movement : MonoBehaviour
     {
         if (other.gameObject.CompareTag("EndPlat"))
         {
-            winText.text = "Final Score: " + score.ToString();
-            winText2.text = "Final Score: " + score.ToString();
+  //          winText.text = "Final Score: " + score.ToString();
+   //         winText2.text = "Final Score: " + score.ToString();
+            setWinText("Final Score: " + score.ToString());
             play = 0;
             //SetScoreText();
         }
@@ -163,6 +180,12 @@ public class Ball_Movement : MonoBehaviour
         scoreText2.text = "Score: " + score.ToString();
     }
 
+    void setWinText(string message)
+    {
+        winText.text = message;
+        winText2.text = message;
+    }
+
     void JumpNew()
     {
         rb.velocity = new Vector3(rb.velocity.x, 0, rb.velocity.z);
@@ -178,8 +201,7 @@ public class Ball_Movement : MonoBehaviour
     void GameOver()
     {
         Destroy(player);
-        winText.text = "Game Over";
-        winText2.text = "Game Over";
+        setWinText("Game Over");
         play = 0;
     }
 
@@ -189,15 +211,33 @@ public class Ball_Movement : MonoBehaviour
         {
             Time.timeScale = 0;
             paused = true;
-            winText.text = "Game Paused";
-            winText2.text = "Game Paused";
+            setWinText("Game Paused");
         }
         else
         {
-            winText.text = "";
-            winText2.text = "";
+            setWinText("");
             Time.timeScale = 1;
             paused = false;
+        }
+    }
+
+    IEnumerator changeShadows()
+    {
+        if (shadowOn)
+        {
+            myLight.shadows = LightShadows.None;
+            shadowOn = false;
+            setWinText("Shading Off");
+            yield return new WaitForSeconds(1);
+            setWinText("");
+        }
+        else
+        {
+            myLight.shadows = LightShadows.Soft;
+            shadowOn = true;
+            setWinText("Shading On");
+            yield return new WaitForSeconds(1);
+            setWinText("");
         }
     }
 

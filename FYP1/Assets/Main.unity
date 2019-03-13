@@ -1184,6 +1184,7 @@ MonoBehaviour:
   scoreText2: {fileID: 1206802802}
   winText2: {fileID: 1743846816}
   myCam: {fileID: 1625204967}
+  myLight: {fileID: 630108368}
 --- !u!1001 &728665810
 PrefabInstance:
   m_ObjectHideFlags: 0
