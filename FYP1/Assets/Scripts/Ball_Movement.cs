@@ -13,6 +13,7 @@ public class Ball_Movement : MonoBehaviour
     public Text scoreText2;
     public Text winText2;
     public Camera myCam;
+    public Camera myCamNew;
     public Light myLight;
 
     private Rigidbody rb;
@@ -21,6 +22,9 @@ public class Ball_Movement : MonoBehaviour
     private int score;
     private int play;
     private Vector3 camDirection;
+    private Color colour10;
+    private Color colour20;
+    private Color colour30;
     Vector3 angle;
 
     private bool grounded;
@@ -45,7 +49,10 @@ public class Ball_Movement : MonoBehaviour
         SetScoreText();
         setWinText("");
         shadowOn = true;
-//        StartCoroutine("changeShadows");
+        colour10 = new Vector4(1, 1, 1, 1);
+        colour20 = new Vector4(0.5f, 0.5f, 0.5f, 1);
+        colour30 = new Vector4(0, 0, 0, 1);
+        //        StartCoroutine("changeShadows");
     }
 
 	void FixedUpdate ()
@@ -73,11 +80,7 @@ public class Ball_Movement : MonoBehaviour
             {
                 camDirection = myCam.transform.forward;
                 movement = camDirection * speed * Time.deltaTime;
-                //rigidbody.AddForce(movement);
                 rb.AddForce(movement);
-                //rb.AddForce(cam.TransformDirection * speed);
-                //rb.AddForce(Vector3.forward * speed);
-                //transform.position += Vector3.forward * Time.deltaTime * speed;
             }
             if (Input.GetKey(KeyCode.O))
             {
@@ -135,16 +138,9 @@ public class Ball_Movement : MonoBehaviour
             {
                 GameOver();
             }
+            updateColours();
         }
 	}
-
- /*   void LateUpdate()
-    {
-        if (Input.GetKey("n"))
-        {
-            changeShadows();
-        }
-    }*/
 
     void OnTriggerEnter(Collider other)
     {
@@ -247,6 +243,22 @@ public class Ball_Movement : MonoBehaviour
             setWinText("Shading On");
             yield return new WaitForSeconds(1);
             setWinText("");
+        }
+    }
+
+    void updateColours()
+    {
+        if(score >= 10 && score <= 19)
+        {
+            myCamNew.backgroundColor = colour10;
+        }
+        else if (score >=20 && score <= 29)
+        {
+            myCamNew.backgroundColor = colour20;
+        }
+        else if (score >= 30)
+        {
+            myCamNew.backgroundColor = colour30;
         }
     }
 
