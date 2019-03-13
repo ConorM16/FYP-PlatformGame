@@ -134,7 +134,7 @@ public class Ball_Movement : MonoBehaviour
             {
                 StartCoroutine("changeShadows");
             }
-            if (transform.position.y <= -4)
+            if (transform.position.y <= -7.5)
             {
                 GameOver();
             }
