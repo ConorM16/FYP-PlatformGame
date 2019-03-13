@@ -20,19 +20,22 @@ public class FirstPCameraControl : MonoBehaviour
     // Update is called once per frame
     void Update()
     {
-        if (Input.GetKey("1"))
+        if (player != null)
         {
-            OrbitTower(false);
+            if (Input.GetKey("1"))
+            {
+                OrbitTower(false);
+            }
+            if (Input.GetKey("2"))
+            {
+                OrbitTower(true);
+            }
+            if (Input.GetKey("3"))
+            {
+                transform.LookAt(target);
+            }
+            transform.position = player.transform.position + offset;
         }
-        if (Input.GetKey("2"))
-        {
-            OrbitTower(true);
-        }
-        if (Input.GetKey("3"))
-        {
-            transform.LookAt(target);
-        }
-        transform.position = player.transform.position + offset;
     }
 
    /* void LateUpdate()
@@ -42,15 +45,18 @@ public class FirstPCameraControl : MonoBehaviour
 
     protected void OrbitTower(bool bLeft)
     {
-        float step = fSpeed * Time.deltaTime;
-        float fOrbitCircumfrance = 2F * fDistance * Mathf.PI;
-        float fDistanceDegrees = (fSpeed / fOrbitCircumfrance) * 360;
-        float fDistanceRadians = (fSpeed / fOrbitCircumfrance) * 2 * Mathf.PI;
-        if (bLeft)
+        if (player != null)
         {
-            transform.RotateAround(player.transform.position, Vector3.up, -fDistanceRadians);
+            float step = fSpeed * Time.deltaTime;
+            float fOrbitCircumfrance = 2F * fDistance * Mathf.PI;
+            float fDistanceDegrees = (fSpeed / fOrbitCircumfrance) * 360;
+            float fDistanceRadians = (fSpeed / fOrbitCircumfrance) * 2 * Mathf.PI;
+            if (bLeft)
+            {
+                transform.RotateAround(player.transform.position, Vector3.up, -fDistanceRadians);
+            }
+            else
+                transform.RotateAround(player.transform.position, Vector3.up, fDistanceRadians);
         }
-        else
-            transform.RotateAround(player.transform.position, Vector3.up, fDistanceRadians);
     }
 }

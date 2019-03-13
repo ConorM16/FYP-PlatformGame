@@ -98,40 +98,43 @@ public class Ball_Movement : MonoBehaviour
 
 	void Update ()
     {
-		if (Input.GetButtonDown("Jump"))
-		{
-            if (grounded)
+        if (player != null)
+        {
+            if (Input.GetButtonDown("Jump"))
             {
-                JumpNew();
-                grounded = false;
-                canDoubleJump = true;
+                if (grounded)
+                {
+                    JumpNew();
+                    grounded = false;
+                    canDoubleJump = true;
+                }
+                else if (canDoubleJump)
+                {
+                    //rb.AddForce(Vector3.up * jump);
+                    JumpNew();
+                    canDoubleJump = false;
+                }
             }
-            else if (canDoubleJump)
+            if (Input.GetKey("r"))
             {
-                //rb.AddForce(Vector3.up * jump);
-                JumpNew();
-                canDoubleJump = false;
+                SceneManager.LoadScene(SceneManager.GetActiveScene().name);
             }
-		}
-        if (Input.GetKey("r"))
-        {
-            SceneManager.LoadScene(SceneManager.GetActiveScene().name);
-        }
-        if (Input.GetKey("q"))
-        {
-            GameOver();
-        }
-        if (Input.GetKey("t"))
-        {
-            PauseGame();
-        }
-        if (Input.GetKey("n"))
-        {
-            StartCoroutine("changeShadows");
-        }
-        if (transform.position.y <= -4)
-        {
-            GameOver();
+            if (Input.GetKey("q"))
+            {
+                GameOver();
+            }
+            if (Input.GetKey("t"))
+            {
+                PauseGame();
+            }
+            if (Input.GetKey("n"))
+            {
+                StartCoroutine("changeShadows");
+            }
+            if (transform.position.y <= -4)
+            {
+                GameOver();
+            }
         }
 	}
 
@@ -145,32 +148,38 @@ public class Ball_Movement : MonoBehaviour
 
     void OnTriggerEnter(Collider other)
     {
-        if (other.gameObject.CompareTag("Pick Up"))
+        if (player != null)
         {
-            other.gameObject.SetActive(false);
-            score = score + 5;
-            SetScoreText();
+            if (other.gameObject.CompareTag("Pick Up"))
+            {
+                other.gameObject.SetActive(false);
+                score = score + 5;
+                SetScoreText();
+            }
         }
     }
 
     void OnCollisionEnter(UnityEngine.Collision other)
     {
-        if (other.gameObject.CompareTag("EndPlat"))
+        if (player != null)
         {
-  //          winText.text = "Final Score: " + score.ToString();
-   //         winText2.text = "Final Score: " + score.ToString();
-            setWinText("Final Score: " + score.ToString());
-            play = 0;
-            //SetScoreText();
-        }
-        else if(other.gameObject.CompareTag("Hurdle"))
-        {
-            score = score - 2;
-            SetScoreText();
-        }
-        else
-        {
-            grounded = true;
+            if (other.gameObject.CompareTag("EndPlat"))
+            {
+                //          winText.text = "Final Score: " + score.ToString();
+                //         winText2.text = "Final Score: " + score.ToString();
+                setWinText("Final Score: " + score.ToString());
+                play = 0;
+                //SetScoreText();
+            }
+            else if (other.gameObject.CompareTag("Hurdle"))
+            {
+                score = score - 2;
+                SetScoreText();
+            }
+            else
+            {
+                grounded = true;
+            }
         }
     }
 
