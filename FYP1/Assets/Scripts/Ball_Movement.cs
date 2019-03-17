@@ -49,9 +49,9 @@ public class Ball_Movement : MonoBehaviour
         SetScoreText();
         setWinText("");
         shadowOn = true;
-        colourEasy = new Vector4(1, 1, 1, 1);
-        colourMed = new Vector4(0.5f, 0.5f, 0.5f, 1);
-        colourHard = new Vector4(0, 0, 0, 1);
+        colourEasy = new Vector4(0, 1, 0, 1);
+        colourMed = new Vector4(1, 1, 0, 1);
+        colourHard = new Vector4(1, 0, 0, 1);
         myCamNew.backgroundColor = colourEasy;
         //        StartCoroutine("changeShadows");
     }
