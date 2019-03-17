@@ -153,6 +153,12 @@ public class Ball_Movement : MonoBehaviour
                 score = score + 5;
                 SetScoreText();
             }
+            if (other.gameObject.CompareTag("Pick Up 2"))
+            {
+                other.gameObject.SetActive(false);
+                score = score + 8;
+                SetScoreText();
+            }
         }
     }
 
