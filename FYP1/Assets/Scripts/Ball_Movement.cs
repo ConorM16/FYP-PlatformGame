@@ -22,9 +22,9 @@ public class Ball_Movement : MonoBehaviour
     private int score;
     private int play;
     private Vector3 camDirection;
-    private Color colour10;
-    private Color colour20;
-    private Color colour30;
+    private Color colourEasy;
+    private Color colourMed;
+    private Color colourHard;
     Vector3 angle;
 
     private bool grounded;
@@ -49,9 +49,10 @@ public class Ball_Movement : MonoBehaviour
         SetScoreText();
         setWinText("");
         shadowOn = true;
-        colour10 = new Vector4(1, 1, 1, 1);
-        colour20 = new Vector4(0.5f, 0.5f, 0.5f, 1);
-        colour30 = new Vector4(0, 0, 0, 1);
+        colourEasy = new Vector4(1, 1, 1, 1);
+        colourMed = new Vector4(0.5f, 0.5f, 0.5f, 1);
+        colourHard = new Vector4(0, 0, 0, 1);
+        myCamNew.backgroundColor = colourEasy;
         //        StartCoroutine("changeShadows");
     }
 
@@ -138,7 +139,7 @@ public class Ball_Movement : MonoBehaviour
             {
                 GameOver();
             }
-            updateColours();
+            //updateColours();
         }
 	}
 
@@ -165,12 +166,23 @@ public class Ball_Movement : MonoBehaviour
                 //         winText2.text = "Final Score: " + score.ToString();
                 setWinText("Final Score: " + score.ToString());
                 play = 0;
+                grounded = true;
                 //SetScoreText();
             }
             else if (other.gameObject.CompareTag("Hurdle"))
             {
                 score = score - 2;
                 SetScoreText();
+            }
+            else if (other.gameObject.CompareTag("EasyPlat"))
+            {
+                myCamNew.backgroundColor = colourMed;
+                grounded = true;
+            }
+            else if (other.gameObject.CompareTag("MediumPlat"))
+            {
+                myCamNew.backgroundColor = colourHard;
+                grounded = true;
             }
             else
             {
@@ -246,7 +258,7 @@ public class Ball_Movement : MonoBehaviour
         }
     }
 
-    void updateColours()
+ /*   void updateColours()
     {
         if(score >= 10 && score <= 19)
         {
@@ -260,6 +272,6 @@ public class Ball_Movement : MonoBehaviour
         {
             myCamNew.backgroundColor = colour30;
         }
-    }
+    }*/
 
 }

@@ -209,6 +209,11 @@ PrefabInstance:
       propertyPath: m_Name
       value: Sq. Platform (1)
       objectReference: {fileID: 0}
+    - target: {fileID: 6247637424343154659, guid: e08a7ae5142727e4f87ae7bb90c066b7,
+        type: 3}
+      propertyPath: m_TagString
+      value: MediumPlat
+      objectReference: {fileID: 0}
     - target: {fileID: 6247637424343154671, guid: e08a7ae5142727e4f87ae7bb90c066b7,
         type: 3}
       propertyPath: m_LocalPosition.x
@@ -6245,6 +6250,11 @@ PrefabInstance:
         type: 3}
       propertyPath: m_Name
       value: Sq. Platform
+      objectReference: {fileID: 0}
+    - target: {fileID: 6247637424343154659, guid: e08a7ae5142727e4f87ae7bb90c066b7,
+        type: 3}
+      propertyPath: m_TagString
+      value: EasyPlat
       objectReference: {fileID: 0}
     - target: {fileID: 6247637424343154671, guid: e08a7ae5142727e4f87ae7bb90c066b7,
         type: 3}
