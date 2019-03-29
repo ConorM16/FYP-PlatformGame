@@ -135,6 +135,10 @@ public class Ball_Movement : MonoBehaviour
             {
                 StartCoroutine("changeShadows");
             }
+            if (Input.GetKey("f"))
+            {
+                StartCoroutine("changeFog");
+            }
             if (transform.position.y <= -4.5)
             {
                 GameOver();
@@ -262,6 +266,25 @@ public class Ball_Movement : MonoBehaviour
             yield return new WaitForSeconds(1);
             setWinText("");
         }
+    }
+
+    IEnumerator changeFog()
+    {
+        if (RenderSettings.fog == true)
+        {
+            RenderSettings.fog = false;
+            setWinText("Fog Off");
+            yield return new WaitForSeconds(1);
+            setWinText("");
+        }
+        else
+        {
+            RenderSettings.fog = true;
+            setWinText("Fog On");
+            yield return new WaitForSeconds(1);
+            setWinText("");
+        }
+
     }
 
  /*   void updateColours()
