@@ -129,6 +129,7 @@ public class Ball_Movement : MonoBehaviour
             {
                 player.transform.position = checkP1.transform.position;
                 player.transform.position += Vector3.up * 3.0f;
+                //rb.velocity = new Vector3(0, 0, 0);
             }
             if (Input.GetKey("2"))
             {
@@ -155,9 +156,11 @@ public class Ball_Movement : MonoBehaviour
             {
                 StartCoroutine("changeFog");
             }
-            if (transform.position.y <= -4.5)
+            if (transform.position.y <= -4f)
             {
-                GameOver();
+                player.transform.position = checkpointTrans;
+                rb.velocity = new Vector3(0, 0, 0);
+                //GameOver();
             }
             //updateColours();
         }
@@ -213,6 +216,7 @@ public class Ball_Movement : MonoBehaviour
             else
             {
                 grounded = true;
+                checkpointTrans = player.transform.position;
             }
         }
     }
