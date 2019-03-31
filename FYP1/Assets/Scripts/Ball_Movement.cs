@@ -175,12 +175,14 @@ public class Ball_Movement : MonoBehaviour
                 other.gameObject.SetActive(false);
                 score = score + 5;
                 SetScoreText();
+                checkpointTrans = player.transform.position;
             }
             if (other.gameObject.CompareTag("Pick Up 2"))
             {
                 other.gameObject.SetActive(false);
                 score = score + 8;
                 SetScoreText();
+                checkpointTrans = player.transform.position;
             }
         }
     }
@@ -216,7 +218,7 @@ public class Ball_Movement : MonoBehaviour
             else
             {
                 grounded = true;
-                checkpointTrans = player.transform.position;
+                //checkpointTrans = player.transform.position;
             }
         }
     }
