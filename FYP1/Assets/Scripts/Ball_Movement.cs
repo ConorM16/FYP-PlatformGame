@@ -27,6 +27,12 @@ public class Ball_Movement : MonoBehaviour
     private Color colourHard;
     Vector3 angle;
 
+    //Checkpoints
+    public GameObject checkP1;
+    public GameObject checkP2;
+
+    private Vector3 checkpointTrans;
+
     private bool grounded;
     private bool canDoubleJump;
     private bool move;
@@ -53,7 +59,7 @@ public class Ball_Movement : MonoBehaviour
         colourMed = new Vector4(0.24f, 0.37f, 0.59f, 0.5f);
         colourHard = new Vector4(0.08f, 0.18f, 0.34f, 0.5f);
         myCamNew.backgroundColor = colourEasy;
-        //        StartCoroutine("changeShadows");
+        checkpointTrans = player.transform.position;
     }
 
 	void FixedUpdate ()
@@ -118,6 +124,16 @@ public class Ball_Movement : MonoBehaviour
                     JumpNew();
                     canDoubleJump = false;
                 }
+            }
+            if (Input.GetKey("1"))
+            {
+                player.transform.position = checkP1.transform.position;
+                player.transform.position += Vector3.up * 3.0f;
+            }
+            if (Input.GetKey("2"))
+            {
+                player.transform.position = checkP2.transform.position;
+                player.transform.position += Vector3.up * 3.0f;
             }
             if (Input.GetKey("r"))
             {
