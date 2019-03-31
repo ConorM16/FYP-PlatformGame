@@ -66,7 +66,7 @@ public class Ball_Movement : MonoBehaviour
     {
 		float moveHor = (Input.GetAxis("Horizontal"));
 		float moveVert = (Input.GetAxis("Vertical"));
-        if (Input.GetKey("1"))
+   /*     if (Input.GetKey("1"))
         {
             Rot(1);
         }
@@ -74,7 +74,7 @@ public class Ball_Movement : MonoBehaviour
         {
             Rot(-1);
         }
-        Quaternion deltaRotation = Quaternion.Euler(angle * Time.deltaTime);
+     */   Quaternion deltaRotation = Quaternion.Euler(angle * Time.deltaTime);
         Vector3 movement = new Vector3(moveHor,0.0f,moveVert);
         //Vector3 movement2 = new Vector3(cam.TransformDirection);
         if(play == 1)
