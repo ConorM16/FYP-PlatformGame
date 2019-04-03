@@ -15,6 +15,7 @@ public class Ball_Movement : MonoBehaviour
     public Camera myCam;
     public Camera myCamNew;
     public Light myLight;
+    public GameObject WorldPlane;
 
     private Rigidbody rb;
     //private Transform cam;
@@ -144,7 +145,7 @@ public class Ball_Movement : MonoBehaviour
             {
                 GameOver();
             }
-            if (Input.GetKey("t"))
+            if (Input.GetKey("p"))
             {
                 PauseGame();
             }
@@ -155,6 +156,10 @@ public class Ball_Movement : MonoBehaviour
             if (Input.GetKey("f"))
             {
                 StartCoroutine("changeFog");
+            }
+            if (Input.GetKey("h"))
+            {
+                StartCoroutine("hidePlane");
             }
             if (transform.position.y <= -4f)
             {
@@ -309,20 +314,41 @@ public class Ball_Movement : MonoBehaviour
 
     }
 
- /*   void updateColours()
+    IEnumerator hidePlane()
     {
-        if(score >= 10 && score <= 19)
+        if (WorldPlane.activeSelf == true)
         {
-            myCamNew.backgroundColor = colour10;
+            WorldPlane.SetActive(false);
+            //RenderSettings.fog = false;
+            setWinText("World Plane off");
+            yield return new WaitForSeconds(1);
+            setWinText("");
         }
-        else if (score >=20 && score <= 29)
+        else
         {
-            myCamNew.backgroundColor = colour20;
+            WorldPlane.SetActive(true);
+            //RenderSettings.fog = false;
+            setWinText("World Plane on");
+            yield return new WaitForSeconds(1);
+            setWinText("");
         }
-        else if (score >= 30)
-        {
-            myCamNew.backgroundColor = colour30;
-        }
-    }*/
+
+    }
+
+    /*   void updateColours()
+       {
+           if(score >= 10 && score <= 19)
+           {
+               myCamNew.backgroundColor = colour10;
+           }
+           else if (score >=20 && score <= 29)
+           {
+               myCamNew.backgroundColor = colour20;
+           }
+           else if (score >= 30)
+           {
+               myCamNew.backgroundColor = colour30;
+           }
+       }*/
 
 }
