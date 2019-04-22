@@ -164,6 +164,7 @@ public class Ball_Movement : MonoBehaviour
             if (transform.position.y <= -4f)
             {
                 player.transform.position = checkpointTrans;
+                score = score - 3;
                 rb.velocity = new Vector3(0, 0, 0);
                 //GameOver();
             }
